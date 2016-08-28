@@ -1,12 +1,3 @@
-//******************************************************************************
-// Kurs OpenGL - krok po kroku
-// http://kurs-opengl.pl
-// Sebastian Tabaka
-//******************************************************************************
-#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
-#define GLFW_DLL
-#endif
-
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
