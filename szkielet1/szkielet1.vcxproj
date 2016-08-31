@@ -113,13 +113,13 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\marta\Desktop\Aquarium\szkielet1\glm;C:\Users\marta\Desktop\Aquarium\szkielet1\GLFW;C:\Users\marta\Desktop\Aquarium\szkielet1\GL;C:\Users\marta\Desktop\Aquarium\szkielet1\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Izabela\Documents\GitHub\Aquarium\szkielet1\GL;C:\Users\Izabela\Documents\GitHub\Aquarium\szkielet1\GLFW;C:\Users\Izabela\Documents\GitHub\Aquarium\szkielet1\assimp;C:\Users\Izabela\Documents\GitHub\Aquarium\szkielet1\glm;C:\Users\marta\Desktop\Aquarium\szkielet1\glm;C:\Users\marta\Desktop\Aquarium\szkielet1\GLFW;C:\Users\marta\Desktop\Aquarium\szkielet1\GL;C:\Users\marta\Desktop\Aquarium\szkielet1\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>assimp.lib;glfw3dll.lib;glew32.lib;FreeImage.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\marta\Desktop\Aquarium\szkielet1\assimp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Izabela\Documents\GitHub\Aquarium\szkielet1\assimp;C:\Users\marta\Desktop\Aquarium\szkielet1\assimp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -153,7 +153,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\marta\Desktop\Aquarium\szkielet1\glm;C:\Users\marta\Desktop\Aquarium\szkielet1\GLFW;C:\Users\marta\Desktop\Aquarium\szkielet1\GL;C:\Users\marta\Desktop\Aquarium\szkielet1\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Izabela\Documents\GitHub\Aquarium\szkielet1\GL;C:\Users\Izabela\Documents\GitHub\Aquarium\szkielet1\GLFW;C:\Users\Izabela\Documents\GitHub\Aquarium\szkielet1\assimp;C:\Users\Izabela\Documents\GitHub\Aquarium\szkielet1\glm;C:\Users\marta\Desktop\Aquarium\szkielet1\glm;C:\Users\marta\Desktop\Aquarium\szkielet1\GLFW;C:\Users\marta\Desktop\Aquarium\szkielet1\GL;C:\Users\marta\Desktop\Aquarium\szkielet1\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,7 +161,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>assimp.lib;glfw3dll.lib;glew32.lib;FreeImage.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\marta\Desktop\Aquarium\szkielet1\assimp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Izabela\Documents\GitHub\Aquarium\szkielet1\assimp;C:\Users\marta\Desktop\Aquarium\szkielet1\assimp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
