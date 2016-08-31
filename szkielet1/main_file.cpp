@@ -23,6 +23,7 @@ int window_height = 0;
 double actual_time;
 double previous_time;
 
+const float PI = 3.14;
 float P1 = 0.1f;
 float P2 = 200.0f;
 float FOV = 1.15f;
@@ -297,6 +298,8 @@ void enableFaceCulling()
 	glFrontFace(GL_CCW);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 //******************************************************************************
 void processWindowEvents()
@@ -498,6 +501,16 @@ GLint LoadShaders(std::string vertex_shader, std::string fragment_shader)
 	glAttachShader(shader_programme, vertex_shader_id);
 	glAttachShader(shader_programme, fragment_shader_id);
 	glLinkProgram(shader_programme);
+	int link_status = -1; 
+	glGetProgramiv(shader_programme, GL_LINK_STATUS, &link_status); 
+	if (link_status != GL_TRUE) {
+		std::cout << "Shader programme link error!" << std::endl;
+		return -1;
+	}
+	const int max_length = 2048; 
+	int length = 0; char log_text[max_length]; 
+	glGetShaderInfoLog(vertex_shader_id, max_length, &length, log_text); 
+	std::cout << log_text;
 
 	glDeleteShader(vertex_shader_id);
 	glDeleteShader(fragment_shader_id);
@@ -544,6 +557,9 @@ int main()
 
 	aspect = float(window_width) / float(window_height);
 	recalculateCamera();
+
+
+
 	//Aquarium Glass
 
 	GLuint vaoAquariumGlass = 0;
@@ -570,6 +586,11 @@ int main()
 	GLint perspective_uniform_aq_glass = glGetUniformLocation(aquariumGlassShaders, "perspective_matrix");
 	if (perspective_uniform_aq_glass == -1)
 		std::cout << "Variable 'perspective_matrix' not found." << std::endl;
+
+
+
+
+
 	//Aquarium Base and Plants
 
 	GLuint vaoAquarium = 0;
@@ -598,6 +619,46 @@ int main()
 	GLint perspective_uniform_aq = glGetUniformLocation(aquariumShaders, "perspective_matrix");
 	if (perspective_uniform_aq == -1)
 		std::cout << "Variable 'perspective_matrix' not found." << std::endl;
+
+
+	//Fishes
+	glm::mat4 translate_matrix;
+	glm::mat4 rotate_matrix;
+
+	const float radiusFish01 = 1.5;
+	float x_trans = 0.0;
+	float y_trans = 0.0;
+	int angle = 0;
+
+
+	GLuint vaoFish01 = 0;
+	std::vector<GLfloat> vertices_countFish01;
+	std::vector<GLfloat> starting_vertexFish01;
+	std::vector<GLuint> texturesFish01;
+
+	LoadSceneFromFile("Meshes/TropicalFish01.obj", vaoFish01, vertices_countFish01,
+		starting_vertexFish01, texturesFish01);
+
+	// Zaladowanie shaderow i pobranie lokalizacji zmiennych uniform
+	GLuint fishShaders = LoadShaders("fish_vertex_shader.glsl", "fish_fragment_shader.glsl");
+
+
+	GLint texture_slot_Fish01 = glGetUniformLocation(fishShaders, "basic_texture");
+	if (texture_slot_Fish01 == -1)
+		std::cout << "Variable 'basic_texture' not found." << std::endl;
+	glUniform1i(texture_slot_Fish01, 0);
+
+	GLint view_uniform_Fish01 = glGetUniformLocation(fishShaders, "view_matrix");
+	if (view_uniform_Fish01 == -1)
+		std::cout << "Variable 'view_matrix' not found." << std::endl;
+
+	GLint perspective_uniform_Fish01 = glGetUniformLocation(fishShaders, "perspective_matrix");
+	if (perspective_uniform_Fish01 == -1)
+		std::cout << "Variable 'perspective_matrix' not found." << std::endl;
+
+	GLint trans_uniform_Fish01 = glGetUniformLocation(fishShaders, "trans_matrix");
+	if (trans_uniform_Fish01 == -1)
+		std::cout << "Variable 'trans_matrix' not found." << std::endl;
 
 
 	// Skybox
@@ -661,6 +722,7 @@ int main()
 	
 	enableFaceCulling();
 
+
 	glUseProgram(aquariumGlassShaders);
 	// Wyslanie perspektywy i pozycji kamery do programu shadera
 	glUniformMatrix4fv(view_uniform_aq_glass, 1, GL_FALSE, glm::value_ptr(view_matrix));
@@ -668,10 +730,16 @@ int main()
 		glm::value_ptr(perspective));
 
 	glUseProgram(aquariumShaders);
-
 	// Wyslanie perspektywy i kamery do programu shadera
 	glUniformMatrix4fv(view_uniform_aq, 1, GL_FALSE, glm::value_ptr(view_matrix));
 	glUniformMatrix4fv(perspective_uniform_aq, 1, GL_FALSE, glm::value_ptr(perspective));
+
+
+	glUseProgram(fishShaders);
+	// Wyslanie perspektywy i kamery do programu shadera
+	glUniformMatrix4fv(view_uniform_Fish01, 1, GL_FALSE, glm::value_ptr(view_matrix));
+	glUniformMatrix4fv(perspective_uniform_Fish01, 1, GL_FALSE, glm::value_ptr(perspective));
+	glUniformMatrix4fv(trans_uniform_Fish01, 1, GL_FALSE, glm::value_ptr(rotate_matrix));
 
 
 	glDepthFunc(GL_LESS);
@@ -689,6 +757,26 @@ int main()
 		glm::vec3 pos(0.0, 0.0, 0.0);
 		view_static = glm::lookAt(pos, pos + camera_direction, camera_up);
 
+		// Fish swimming
+		static double prev_time = glfwGetTime();
+		double act_time = glfwGetTime();
+		double elapsed_time = actual_time - prev_time;
+
+		if (elapsed_time > 0.01)
+		{
+			prev_time = act_time;
+			angle += 1;
+
+			x_trans = radiusFish01 * cos(angle * PI / 180.0);
+			y_trans = radiusFish01 * sin(angle * PI / 180.0);
+		}
+		int phi = angle % 360;
+		float phis = -phi * PI / 180.0;
+
+		translate_matrix = glm::translate(glm::mat4(1.0), glm::vec3(x_trans, 0.0, y_trans));
+		rotate_matrix = glm::rotate(translate_matrix, phis, glm::vec3(0, 1, 0));
+
+
 		//SKYBOX
 		glUseProgram(skyboxShaders);
 		glUniformMatrix4fv(view_uniform_sky, 1, GL_FALSE, glm::value_ptr(view_static));
@@ -703,10 +791,23 @@ int main()
 	
 		glEnable(GL_DEPTH_TEST);
 
+
+		glUseProgram(aquariumGlassShaders);
+		// Wyslanie perspektywy i pozycji kamery do programu shadera
+		glUniformMatrix4fv(view_uniform_aq_glass, 1, GL_FALSE, glm::value_ptr(view_matrix));
+		glUniformMatrix4fv(perspective_uniform_aq_glass, 1, GL_FALSE,
+			glm::value_ptr(perspective));
+
 		glUseProgram(aquariumShaders);
 		// Wyslanie perspektywy i kamery do programu shadera
 		glUniformMatrix4fv(view_uniform_aq, 1, GL_FALSE, glm::value_ptr(view_matrix));
 		glUniformMatrix4fv(perspective_uniform_aq, 1, GL_FALSE, glm::value_ptr(perspective));
+
+		glUseProgram(fishShaders);
+		// Wyslanie perspektywy i kamery do programu shadera
+		glUniformMatrix4fv(view_uniform_Fish01, 1, GL_FALSE, glm::value_ptr(view_matrix));
+		glUniformMatrix4fv(perspective_uniform_Fish01, 1, GL_FALSE, glm::value_ptr(perspective));
+		glUniformMatrix4fv(trans_uniform_Fish01, 1, GL_FALSE, glm::value_ptr(rotate_matrix));
 
 
 		// Rysowanie
@@ -726,6 +827,15 @@ int main()
 			glUniform1i(texture_slot_aq, 0);
 			glDrawArrays(GL_TRIANGLES, starting_vertexAquarium[i], vertices_countAquarium[i]);
 		}
+		glUseProgram(fishShaders);
+		glBindVertexArray(vaoFish01);
+		for (int i = 0; i < starting_vertexFish01.size(); i++)
+		{
+			glBindTexture(GL_TEXTURE_2D, texturesFish01[i]);
+			glUniform1i(texture_slot_aq, 0);
+			glDrawArrays(GL_TRIANGLES, starting_vertexFish01[i], vertices_countFish01[i]);
+		}
+
 
 		processWindowEvents();
 	}

@@ -23,7 +23,7 @@ void main()
    vec3 ambient_intense = ambient_color * object_ambient_factor;  
 
    // Diffuse
-   vec3 distance_to_light = vec3(view_matrix * vec4(light_position, 0.5)) - vertex_to_camera;
+   vec3 distance_to_light = vec3(view_matrix * vec4(light_position, 1.0)) - vertex_to_camera;
    vec3 light_direction = normalize(distance_to_light);
    float dot_product = dot(light_direction, normal_to_camera);
    dot_product = max(dot_product, 0.0);
@@ -39,5 +39,5 @@ void main()
    vec3 specular_intense = specular_color * object_specular_factor * specular_factor; 
 
    vec4 texel = texture(basic_texture, texture_coordinates);   
-   frag_colour = vec4(ambient_intense + diffuse_intense + specular_intense, 0.5) * texel;
+   frag_colour = vec4(ambient_intense + diffuse_intense + specular_intense, 1.0) * texel;
 }
