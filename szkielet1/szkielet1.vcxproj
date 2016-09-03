@@ -168,9 +168,11 @@
     <ClCompile Include="cube.cpp" />
     <ClCompile Include="detailed_cube.cpp" />
     <ClCompile Include="Loader.cpp" />
+    <ClCompile Include="MainModel.cpp" />
     <ClCompile Include="main_file.cpp" />
     <ClCompile Include="MeshLoader.cpp" />
     <ClCompile Include="model.cpp" />
+    <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="sphere.cpp" />
     <ClCompile Include="teapot.cpp" />
     <ClCompile Include="torus.cpp" />
@@ -181,9 +183,11 @@
     <ClInclude Include="cube.h" />
     <ClInclude Include="detailed_cube.h" />
     <ClInclude Include="Loader.h" />
+    <ClInclude Include="MainModel.h" />
     <ClInclude Include="MeshLoader.h" />
     <ClInclude Include="model.h" />
     <ClInclude Include="myCube.h" />
+    <ClInclude Include="Skybox.h" />
     <ClInclude Include="sphere.h" />
     <ClInclude Include="teapot.h" />
     <ClInclude Include="torus.h" />
