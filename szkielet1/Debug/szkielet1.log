@@ -13,16 +13,16 @@ c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(515): warning C4
 c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(528): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(529): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(536): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(562): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(566): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(589): warning C4018: '<': signed/unsigned mismatch
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(593): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(593): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(607): warning C4018: '<': signed/unsigned mismatch
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(611): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(611): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(621): warning C4018: '<': signed/unsigned mismatch
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(625): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(625): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(638): warning C4018: '<': signed/unsigned mismatch
-LINK : fatal error LNK1104: cannot open file 'C:\Users\marta\Desktop\projekt\Aquarium\Debug\szkielet1.ilk'
+c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(543): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(547): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(566): warning C4018: '<': signed/unsigned mismatch
+c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(570): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
+c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(570): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
+c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(584): warning C4018: '<': signed/unsigned mismatch
+c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(588): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
+c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(588): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
+c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(598): warning C4018: '<': signed/unsigned mismatch
+c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(602): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
+c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(602): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
+c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(615): warning C4018: '<': signed/unsigned mismatch
+  szkielet1.vcxproj -> C:\Users\marta\Desktop\projekt\Aquarium\Debug\szkielet1.exe

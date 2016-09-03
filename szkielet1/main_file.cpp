@@ -535,29 +535,10 @@ int main()
 		int phi = angle % 360;
 		float phis = -phi * PI / 180.0;
 
-		/*
-		translate_matrix = glm::translate(glm::translate(glm::mat4(1.0), glm::vec3(x_trans, 0.0, y_trans)), glm::vec3(0.0, h, 0.0));
-		//rotate_matrix = glm::rotate(translate_matrix, phis, glm::vec3(0, 1, 0));
-		
-		// UP AND DOWN
-		if (count < 600) {
-			h = h - 0.005;
-			rotate_matrix = glm::rotate(glm::rotate(translate_matrix, phis, glm::vec3(0, 1, 0)), 145.f, glm::vec3(1, 0, 0));
-		}
-		else {
-			h = h + 0.005;
-			rotate_matrix = glm::rotate(glm::rotate(translate_matrix, phis, glm::vec3(0, 1, 0)), -145.f, glm::vec3(1, 0, 0));
-		}
-
-		if (count >= 1200)
-			count = 0;
-
-		//h = sin(count);
-		count++;
-		*/
 
 		// PIERWSZA RYBKA:
 		// UP AND DOWN
+		translate_matrix = glm::translate(glm::translate(glm::mat4(1.0), glm::vec3(x_trans, 0.0, y_trans)), glm::vec3(0.0, h, 0.0));
 		if (count < 500) {
 			h = h - 0.005;
 			rotate_matrix = glm::rotate(glm::rotate(translate_matrix, phis, glm::vec3(0, 1, 0)), 145.f, glm::vec3(1, 0, 0));
@@ -572,10 +553,6 @@ int main()
 
 		//h = sin(count);
 		count++;
-
-		translate_matrix = glm::translate(glm::translate(glm::mat4(1.0), glm::vec3(x_trans, 0.0, y_trans)), glm::vec3(0.0, h, 0.0));
-		rotate_matrix = glm::rotate(translate_matrix, phis, glm::vec3(0, 1, 0));
-
 
 		glUseProgram(fishShaders);
 
