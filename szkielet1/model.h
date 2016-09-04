@@ -1,40 +1,39 @@
-/*
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-#ifndef MODEL_H
-#define MODEL_H
-
+#pragma once
+#include <GL/glew.h>
+#include <fstream>
+#include <iostream>
+#include <string>
 #include <vector>
 #include <glm/glm.hpp>
-#include <GLFW/glfw3.h>
-#include "constants.h"
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
-namespace Models {
+class Model {
+public:
+	GLuint vao = 0;
+	std::vector<GLfloat> vertices_count;
+	std::vector<GLfloat> starting_vertex;
+	std::vector<GLuint> textures;
 
-	class Model {
-		public:
-			int vertexCount;
-			float *vertices;
-			float *normals;
-			float *vertexNormals;
-			float *texCoords;
-			float *colors;
-					
-			virtual void drawSolid()=0;
-			virtual void drawWire();
-	};
-}
+	GLuint shader;
+	std::string path;
 
-#endif
+
+	Model::Model(std::string path);
+	Model::Model();
+	void Model::sendMatrix(glm::mat4 view_matrix, glm::mat4 perspective_matrix);
+	void Model::drawModel();
+
+
+	GLint texture_slot;
+	GLint view_uniform;
+	GLint perspective_uniform;
+	GLint trans_uniform;
+
+	void Model::setPath(std::string path);
+	void Model::getUniform();
+
+
+
+
+};

@@ -1,26 +1,54 @@
-/*
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+#include "Model.h"
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+Model::Model(std::string path) {
+	setPath(path);
+}
 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 
-#include "model.h"
+void Model::setPath(std::string path) {
+	this->path = path;
+}
 
-namespace Models {
-	void Model::drawWire() {
-		glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-		
-		drawSolid();
-		
-		glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+Model::Model() {
+
+}
+
+
+
+void Model::getUniform() {
+	texture_slot = glGetUniformLocation(shader, "basic_texture");
+	if (texture_slot == -1)
+		std::cout << "Variable 'basic_texture' not found." << std::endl;
+	glUniform1i(texture_slot, 0);
+
+	view_uniform = glGetUniformLocation(shader, "view_matrix");
+	if (view_uniform == -1)
+		std::cout << "Variable 'view_matrix' not found." << std::endl;
+
+	perspective_uniform = glGetUniformLocation(shader, "perspective_matrix");
+	if (perspective_uniform == -1)
+		std::cout << "Variable 'perspective_matrix' not found." << std::endl;
+
+}
+
+
+void Model::sendMatrix(glm::mat4 view_matrix, glm::mat4 perspective_matrix) {
+	getUniform();
+	glUseProgram(shader);
+	glUniformMatrix4fv(view_uniform, 1, GL_FALSE, glm::value_ptr(view_matrix));
+	glUniformMatrix4fv(perspective_uniform, 1, GL_FALSE, glm::value_ptr(perspective_matrix));
+}
+
+
+void Model::drawModel() {
+
+	glUseProgram(shader);
+
+	glBindVertexArray(vao);
+	for (int i = 0; i < starting_vertex.size(); i++)
+	{
+		glBindTexture(GL_TEXTURE_2D, textures[i]);
+		glUniform1i(texture_slot, 0);
+		glDrawArrays(GL_TRIANGLES, starting_vertex[i], vertices_count[i]);
 	}
 }
