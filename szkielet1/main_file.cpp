@@ -29,29 +29,23 @@ Loader loader;
 
 float P1 = 0.1f;
 float P2 = 200.0f;
-float FOV = 1.15f;
+float FOV = 1.8f;
 float aspect;
 float camera_horizontal_angle = 0;
 float camera_vertical_angle = 0;
-glm::vec3 camera_position(-5.0, 8.0, -2.0);
+glm::vec3 camera_position(-5.0, 3.0, -2.0);
 glm::vec3 camera_direction(1.0, 0.0, 0.0);
 glm::vec3 camera_right(1.0, 0.0, 0.0);
 glm::vec3 camera_up;
 glm::mat4 view_matrix;
 glm::mat4 perspective;
 
+
 void updateTimer()
 {
 	previous_time = actual_time;
 	actual_time = glfwGetTime();
 }
-//******************************************************************************
-void lockCursor(GLFWwindow *window)
-{
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	glfwSetCursorPos(window, window_width / 2.0, window_height / 2.0);
-}
-//******************************************************************************
 
 void setCameraAngles(float horizontal, float vertical)
 {
@@ -72,17 +66,14 @@ void recalculateCamera()
 	camera_up = glm::cross(camera_right, camera_direction);
 	view_matrix = glm::lookAt(camera_position, camera_position +
 		camera_direction, camera_up);
-
-	view_matrix = glm::lookAt(camera_position, camera_position +
-		camera_direction, camera_up);
-
 	perspective = glm::perspective(FOV, aspect, P1, P2);
 }
 //******************************************************************************
 void cursorPositionCallback(GLFWwindow *window, double x_cursor_pos,
 	double y_cursor_pos)
 {
-	lockCursor(window);
+	glfwSetInputMode(window, GLFW_CURSOR,GLFW_CURSOR_DISABLED);
+	glfwSetCursorPos(window, window_width / 2.0, window_height / 2.0);
 
 	float mouse_speed = 0.5f;
 	float time_delta = static_cast<float>(actual_time - previous_time);
@@ -116,7 +107,7 @@ void KeyCallback(GLFWwindow *window, int key, int /*scancode*/, int action,
 		return;
 	}
 
-	printf("pressed key!  %d", camera_position);
+	printf("pressed key!  %d \n", camera_position );
 	float move_speed = 55.0f;
 	float time_delta = static_cast<float>(actual_time - previous_time);
 
@@ -129,6 +120,7 @@ void KeyCallback(GLFWwindow *window, int key, int /*scancode*/, int action,
 	if (key == GLFW_KEY_D)
 		camera_position += camera_right * time_delta * move_speed;
 
+	printf("camera position! x %f y %f z %f \n", camera_position.x, camera_position.y, camera_position.z);
 	recalculateCamera();
 }
 //******************************************************************************
@@ -196,14 +188,7 @@ int createWindow(int width, int height, std::string name, int samples,
 
 	return 0;
 }
-//******************************************************************************
 
-void enableDepthTesting()
-{
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LESS);
-}
-//******************************************************************************
 void enableFaceCulling()
 {
 	glFrontFace(GL_CCW);
@@ -257,6 +242,9 @@ int main()
 	if (result)
 		return -1;
 	glfwSetCursorPos(window_handle, window_width / 2.0, window_height / 10.0);
+
+	
+
 	// SKYBOX
 	GLuint skyboxShaders = loader.LoadShaders("vertex_shader_skybox.txt", "fragment_shader_skybox.txt");
 
@@ -278,8 +266,6 @@ int main()
 
 	loader.LoadSceneFromFile("Meshes/aquarium-glass.obj", vaoAquariumGlass, vertices_countAquariumGlass,
 		starting_vertexAquariumGlass, texturesAquariumGlass);
-
-
 	// shaders + uniforms
 	glm::mat4 trans(glm::translate(glm::mat4(1.0), glm::vec3(0.5, 0.3, 0.0)));
 	GLint texture_slot_aq_glass = glGetUniformLocation(aquariumGlassShaders, "basic_texture");
@@ -300,15 +286,12 @@ int main()
 	GLuint aquariumShaders = loader.LoadShaders("aquarium_vertex_shader.glsl", "aquarium_fragment_shader.glsl");
 
 	//create model
-
 	GLuint vaoAquarium = 0;
 	std::vector<GLfloat> vertices_countAquarium;
 	std::vector<GLfloat> starting_vertexAquarium;
 	std::vector<GLuint> texturesAquarium;
 	loader.LoadSceneFromFile("Meshes/aquarium.obj", vaoAquarium, vertices_countAquarium,
 		starting_vertexAquarium, texturesAquarium);
-
-
 	GLint texture_slot_aq = glGetUniformLocation(aquariumShaders, "basic_texture");
 	if (texture_slot_aq == -1)
 		std::cout << "Variable 'basic_texture' not found." << std::endl;
@@ -423,12 +406,23 @@ int main()
 	glBindVertexArray(skybox_vao);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	glEnableVertexAttribArray(0);
-	GLuint skybox_texture = 0;
-	loader.loadSkybox("skybox/sea_ft.JPG", "skybox/sea_bk.JPG", "skybox/sea_lf.JPG", "skybox/sea_rt.JPG",
-	"skybox/sea_up.JPG", "skybox/sea_dn.JPG", skybox_texture);
+
+	GLuint skybox_texture0 = 0;
+	loader.loadSkybox("skybox/sea_test.jpg", "skybox/sea_test.jpg", "skybox/sea_test.jpg", "skybox/sea_test.jpg",
+		"skybox/sea_test.jpg", "skybox/sea_test.jpg", skybox_texture0);
+	GLuint skybox_texture1 = 0;
+	loader.loadSkybox("skybox/sea_test1.jpg", "skybox/sea_test1.jpg", "skybox/sea_test1.jpg", "skybox/sea_test1.jpg",
+		"skybox/sea_test1.jpg", "skybox/sea_test1.jpg", skybox_texture1);
+	GLuint skybox_texture2 = 0;
+	loader.loadSkybox("skybox/sea_test2.jpg", "skybox/sea_test2.jpg", "skybox/sea_test2.jpg", "skybox/sea_test2.jpg",
+		"skybox/sea_test2.jpg", "skybox/sea_test2.jpg", skybox_texture2);
+	GLuint skybox_texture3 = 0;
+	loader.loadSkybox("skybox/sea_test3.jpg", "skybox/sea_test3.jpg", "skybox/sea_test3.jpg", "skybox/sea_test3.jpg",
+		"skybox/sea_test3.jpg", "skybox/sea_test3.jpg", skybox_texture3);
+
+
 	
 	enableFaceCulling();
-
 
 	glUseProgram(aquariumGlassShaders);
 	//perspective
@@ -454,6 +448,7 @@ int main()
 	float h = 3.7;
 	int count = 0;
 	int swim_angle = 45.f;
+	int gif = 0;
 	while (renderingEnabled())
 	{
 
@@ -463,14 +458,12 @@ int main()
 		updateTimer();
 
 		clearColor(0.5, 0.5, 0.5);
+
+		//skybox
 		glm::mat4 view_static = view_matrix;
 		glm::vec3 pos(0.0, 0.0, 0.0);
 		view_static = glm::lookAt(pos, pos + camera_direction, camera_up);
 
-		
-
-
-		
 
 		//SKYBOX
 		glUseProgram(skyboxShaders);
@@ -479,12 +472,22 @@ int main()
 
 		glDisable(GL_DEPTH_TEST);
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_CUBE_MAP, skybox_texture);
+		if (gif < 100)
+			glBindTexture(GL_TEXTURE_CUBE_MAP, skybox_texture0);
+		else if (gif < 200)
+			glBindTexture(GL_TEXTURE_CUBE_MAP, skybox_texture1);
+		else if (gif < 300)
+			glBindTexture(GL_TEXTURE_CUBE_MAP, skybox_texture2);
+		else if (gif < 400)
+			glBindTexture(GL_TEXTURE_CUBE_MAP, skybox_texture3);
+
+		if (gif == 400)
+			gif = 0;
+
+		gif++;
 		glBindVertexArray(skybox_vao);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		glEnable(GL_DEPTH_TEST);
-
-
 
 		glUseProgram(aquariumGlassShaders);
 		// Wyslanie perspektywy i pozycji kamery do programu shadera
@@ -501,7 +504,6 @@ int main()
 			glDrawArrays(GL_TRIANGLES, starting_vertexAquariumGlass[i], vertices_countAquariumGlass[i]);
 		}
 
-		
 		glUseProgram(aquariumShaders);
 		// Wyslanie perspektywy i kamery do programu shadera
 		glUniformMatrix4fv(view_uniform_aq, 1, GL_FALSE, glm::value_ptr(view_matrix));
@@ -539,6 +541,7 @@ int main()
 		// PIERWSZA RYBKA:
 		// UP AND DOWN
 		translate_matrix = glm::translate(glm::translate(glm::mat4(1.0), glm::vec3(x_trans, 0.0, y_trans)), glm::vec3(0.0, h, 0.0));
+		printf("fish position  : %f, %f, %f \n", translate_matrix[0], translate_matrix[1], translate_matrix[2]);
 		if (count < 500) {
 			h = h - 0.005;
 			rotate_matrix = glm::rotate(glm::rotate(translate_matrix, phis, glm::vec3(0, 1, 0)), 145.f, glm::vec3(1, 0, 0));
@@ -602,23 +605,6 @@ int main()
 			glDrawArrays(GL_TRIANGLES, starting_vertexFish01[i], vertices_countFish01[i]);
 		}
 		
-		
-		
-		
-		translate_matrix = glm::translate(glm::translate(glm::mat4(1.0), glm::vec3(x_trans, 0.0, y_trans)), glm::vec3(0.0, 1.0, 0.0));
-		rotate_matrix = glm::rotate(translate_matrix, phis, glm::vec3(0, 1, 0));
-		glUniformMatrix4fv(view_uniform_Fish01, 1, GL_FALSE, glm::value_ptr(view_matrix));
-		glUniformMatrix4fv(perspective_uniform_Fish01, 1, GL_FALSE, glm::value_ptr(perspective));
-		glUniformMatrix4fv(trans_uniform_Fish01, 1, GL_FALSE, glm::value_ptr(rotate_matrix));
-		glUseProgram(fishShaders);
-		glBindVertexArray(vaofish2);
-		for (int i = 0; i < starting_vertexFish01.size(); i++)
-		{
-			glBindTexture(GL_TEXTURE_2D, texturesFish01[i]);
-			glUniform1i(texture_slot_aq, 0);
-			(GL_TRIANGLES, starting_vertexFish01[i], vertices_countFish01[i]);
-		}
-
 		processWindowEvents();
 	}
 

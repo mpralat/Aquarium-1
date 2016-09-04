@@ -1,28 +1,2 @@
-﻿  main_file.cpp
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(119): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'glm::vec3'
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(223): warning C4273: 'terminate': inconsistent dll linkage
-  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_terminate.h(29): note: see previous definition of 'terminate'
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(454): warning C4305: 'initializing': truncation from 'double' to 'float'
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(456): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(497): warning C4018: '<': signed/unsigned mismatch
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(501): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(501): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(511): warning C4018: '<': signed/unsigned mismatch
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(515): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(515): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(528): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(529): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(536): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(543): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(547): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(566): warning C4018: '<': signed/unsigned mismatch
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(570): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(570): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(584): warning C4018: '<': signed/unsigned mismatch
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(588): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(588): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(598): warning C4018: '<': signed/unsigned mismatch
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(602): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(602): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
-c:\users\marta\desktop\projekt\aquarium\szkielet1\main_file.cpp(615): warning C4018: '<': signed/unsigned mismatch
+﻿     Creating library C:\Users\marta\Desktop\projekt\Aquarium\Debug\szkielet1.lib and object C:\Users\marta\Desktop\projekt\Aquarium\Debug\szkielet1.exp
   szkielet1.vcxproj -> C:\Users\marta\Desktop\projekt\Aquarium\Debug\szkielet1.exe
