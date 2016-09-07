@@ -3,6 +3,7 @@
 
 Fish::Fish (std::string path, float radius) {
 	setPath(path);
+	this->radius = radius;
 }
 
 Fish::Fish() {

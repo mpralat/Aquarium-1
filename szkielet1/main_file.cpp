@@ -394,12 +394,13 @@ int main()
 		// Fish swimming
 		static double prev_time = glfwGetTime();
 		double act_time = glfwGetTime();
-		double elapsed_time = actual_time - prev_time;
+		double elapsed_time = act_time - prev_time;
 
 		if (elapsed_time > 0.01)
 		{
 			prev_time = act_time;
 			angle += 1;
+			std::cout << fish01.radius *cos(angle * PI / 180.0) << std::endl;
 
 			x_trans = fish01.radius * cos(angle * PI / 180.0);
 			y_trans = fish01.radius * sin(angle * PI / 180.0);
@@ -410,8 +411,7 @@ int main()
 		}
 		int phi = angle % 360;
 		float phis = -phi * PI / 180.0;
-
-		fish02.translate_matrix = glm::translate(glm::mat4(1.0), glm::vec3(fish02.radius * cos(angle*PI/180.0), 0.0, fish02.radius * sin(angle*PI / 180.0)));
+		fish02.translate_matrix = glm::translate(glm::mat4(1.0), glm::vec3(x_trans, 0.0, y_trans));
 		fish02.rotate_matrix = glm::rotate(fish02.translate_matrix, phis, glm::vec3(0, 1, 0));
 		// PIERWSZA RYBKA:
 		// UP AND DOWN
@@ -429,13 +429,8 @@ int main()
 		//h = sin(count);
 		count++;
 
-
-		//Draw aquarium
-		aquariumGlass.sendMatrix(view_matrix, perspective);
-		aquariumGlass.drawModel();
-
-		aquariumBase.sendMatrix(view_matrix, perspective);
-		aquariumBase.drawModel();
+		
+	
 
 		//Draw Fish
 		fish01.sendMatrix(view_matrix,perspective);
@@ -443,6 +438,13 @@ int main()
 		
 	    fish02.sendMatrix(view_matrix, perspective);
 		fish02.drawModel();
+
+		//Draw aquarium
+		aquariumBase.sendMatrix(view_matrix, perspective);
+		aquariumBase.drawModel();
+		aquariumGlass.sendMatrix(view_matrix, perspective);
+		aquariumGlass.drawModel();
+
 
 		processWindowEvents();
 	}
