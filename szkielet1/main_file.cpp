@@ -20,6 +20,7 @@
 #include "Loader.h"
 #include "Model.h"
 #include "Fish.h"
+
 //******************************************************************************
 GLFWwindow *window_handle = nullptr;
 int window_width = 0;
@@ -34,12 +35,15 @@ float FOV = 1.15f;
 float aspect;
 float camera_horizontal_angle = 0;
 float camera_vertical_angle = 0;
-glm::vec3 camera_position(-5.0, 8.0, -2.0);
+glm::vec3 camera_position(1.5, 3.0, -5.0);
 glm::vec3 camera_direction(1.0, 0.0, 0.0);
 glm::vec3 camera_right(1.0, 0.0, 0.0);
 glm::vec3 camera_up;
 glm::mat4 view_matrix;
 glm::mat4 perspective;
+float cam_height = 3.0;
+glm::vec3 future_move;
+
 
 void updateTimer()
 {
@@ -111,25 +115,29 @@ void cursorPositionCallback(GLFWwindow *window, double x_cursor_pos,
 void KeyCallback(GLFWwindow *window, int key, int /*scancode*/, int action,
 	int /*mods*/)
 {
+	future_move = camera_position;
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 	{
 		glfwSetWindowShouldClose(window, GL_TRUE);
 		return;
 	}
-
-	printf("pressed key!  %d", camera_position);
 	float move_speed = 55.0f;
 	float time_delta = static_cast<float>(actual_time - previous_time);
 
 	if (key == GLFW_KEY_W)
-		camera_position += camera_direction * time_delta * move_speed;
-	if (key == GLFW_KEY_S)
-		camera_position -= camera_direction * time_delta * move_speed;
+		future_move += camera_direction * time_delta * move_speed;
+	if (key == GLFW_KEY_S) 
+		future_move -= camera_direction * time_delta * move_speed;
+	
 	if (key == GLFW_KEY_A)
-		camera_position -= camera_right * time_delta * move_speed;
+		future_move -= camera_right * time_delta * move_speed;
 	if (key == GLFW_KEY_D)
-		camera_position += camera_right * time_delta * move_speed;
+		future_move += camera_right * time_delta * move_speed;
 
+	if (!(future_move.x > -7.5 && future_move.x < 10.0 && future_move.z > -3.19 && future_move.z < 4.22))
+		camera_position = future_move;
+
+	camera_position.y = 3.0;
 	recalculateCamera();
 }
 //******************************************************************************
@@ -261,13 +269,12 @@ int main()
 	aspect = float(window_width) / float(window_height);
 	recalculateCamera();
 
+
 	// SKYBOX
 	GLuint skyboxShaders = loader.LoadShaders("vertex_shader_skybox.txt", "fragment_shader_skybox.txt");
 
 	GLint view_uniform_sky = findUniform(skyboxShaders, "view_matrix");
 	GLint perspective_uniform_sky = findUniform(skyboxShaders, "perspective_matrix");
-
-	
 
 	//Aquarium Base and Plants
 
@@ -275,7 +282,6 @@ int main()
 	loader.LoadSceneFromFile(aquariumBase.path, aquariumBase.vao, aquariumBase.vertices_count, aquariumBase.starting_vertex, aquariumBase.textures);
 	aquariumBase.shader = loader.LoadShaders("aquarium_vertex_shader.glsl", "aquarium_fragment_shader.glsl");
 
-	
 	//Aquarium Glass
 
 	Model aquariumGlass("Meshes/aquarium-glass.obj");
@@ -353,8 +359,6 @@ int main()
 	enableFaceCulling();
 	glDepthFunc(GL_LESS);
 
-
-
 	//Fishes
 
 	float x_trans = 0.0;
@@ -388,8 +392,6 @@ int main()
 		glBindVertexArray(skybox_vao);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		glEnable(GL_DEPTH_TEST);
-
-	
 		
 		// Fish swimming
 		static double prev_time = glfwGetTime();
@@ -400,7 +402,7 @@ int main()
 		{
 			prev_time = act_time;
 			angle += 1;
-			std::cout << fish01.radius *cos(angle * PI / 180.0) << std::endl;
+			//std::cout << fish01.radius *cos(angle * PI / 180.0) << std::endl;
 
 			x_trans = fish01.radius * cos(angle * PI / 180.0);
 			y_trans = fish01.radius * sin(angle * PI / 180.0);
@@ -429,9 +431,6 @@ int main()
 		//h = sin(count);
 		count++;
 
-		
-	
-
 		//Draw Fish
 		fish01.sendMatrix(view_matrix,perspective);
 		fish01.drawModel();
@@ -444,7 +443,6 @@ int main()
 		aquariumBase.drawModel();
 		aquariumGlass.sendMatrix(view_matrix, perspective);
 		aquariumGlass.drawModel();
-
 
 		processWindowEvents();
 	}
