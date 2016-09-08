@@ -1,4 +1,4 @@
-# Blender MTL File: 'TropicalFish01.blend'
+# Blender MTL File: 'None'
 # Material Count: 1
 
 newmtl 07___Default
@@ -11,4 +11,4 @@ Ni 1.500000
 d 1.000000
 illum 2
 map_Kd TropicalFish07.jpg
-map_Ka TropicalFish07.jpg
+map_Ka  TropicalFish07.jpg
