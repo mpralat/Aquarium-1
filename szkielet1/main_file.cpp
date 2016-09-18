@@ -43,7 +43,7 @@ glm::mat4 view_matrix;
 glm::mat4 perspective;
 float cam_height = 3.0;
 glm::vec3 future_move;
-
+int FISH_NUMBER = 2;
 
 void updateTimer()
 {
@@ -197,7 +197,6 @@ int createWindow(int width, int height, std::string name, int samples,
 		std::cout << "GLEW initialization error." << std::endl;
 		return -1;
 	}
-
 	glfwSetCursorPos(window_handle, window_width / 2.0, window_height / 2.0);
 	glfwSetKeyCallback(window_handle, KeyCallback);
 	glfwSetCursorPosCallback(window_handle, cursorPositionCallback);
@@ -206,7 +205,6 @@ int createWindow(int width, int height, std::string name, int samples,
 	return 0;
 }
 //******************************************************************************
-
 void enableDepthTesting()
 {
 	glEnable(GL_DEPTH_TEST);
@@ -283,12 +281,32 @@ int main()
 	aquariumBase.shader = loader.LoadShaders("aquarium_vertex_shader.glsl", "aquarium_fragment_shader.glsl");
 
 	//Aquarium Glass
-
 	Model aquariumGlass("Meshes/aquarium-glass.obj");
 	loader.LoadSceneFromFile(aquariumGlass.path, aquariumGlass.vao, aquariumGlass.vertices_count, aquariumGlass.starting_vertex, aquariumGlass.textures);
 	aquariumGlass.shader = loader.LoadShaders("aquariumGlassvertex_shader.glsl", "aquariumGlassfragment_shader.glsl");
 
+	// Fish
+	std::string path = "Meshes/TropicalFish0";
+	std::vector<std::string> namesVector;
+	for (int i = 1; i < FISH_NUMBER + 1; i++)
+		namesVector.push_back(path + std::to_string(i) + ".obj");
+	
+	std::vector<float> radiusVector;
+	radiusVector.push_back(1.7);
+	radiusVector.push_back(1.1);
 
+	std::vector<Fish> fishVector;
+	for (int i = 0; i < 2; i++) {
+		std::cout << "i " << std::endl;
+		Fish newFish(namesVector[i], radiusVector[i]);
+		loader.LoadSceneFromFile(newFish.path, newFish.vao, newFish.vertices_count, newFish.starting_vertex, newFish.textures);
+		newFish.shader = loader.LoadShaders("fish_vertex_shader.glsl", "fish_fragment_shader.glsl");
+		fishVector.push_back(newFish);
+		std::cout << fishVector.size() << std::endl;
+	}
+	Fish fish01 = fishVector[0];
+	Fish fish02 = fishVector[1];
+	/*
 	Fish fish01("Meshes/TropicalFish01.obj",1.7);
 	loader.LoadSceneFromFile(fish01.path, fish01.vao, fish01.vertices_count, fish01.starting_vertex, fish01.textures);
 	fish01.shader = loader.LoadShaders("fish_vertex_shader.glsl", "fish_fragment_shader.glsl");
@@ -296,7 +314,7 @@ int main()
 	Fish fish02("Meshes/TropicalFish02.obj",1.1);
 	loader.LoadSceneFromFile(fish02.path, fish02.vao, fish02.vertices_count, fish02.starting_vertex, fish02.textures);
 	fish02.shader = loader.LoadShaders("fish_vertex_shader.glsl", "fish_fragment_shader.glsl");
-
+	*/
 	// Skybox
 	GLfloat skybox[] = {
 		-1.0f,  1.0f, -1.0f,
@@ -408,8 +426,8 @@ int main()
 			y_trans = fish01.radius * sin(angle * PI / 180.0);
 
 			//LEMNISKATA 
-			//x_trans = (radiusFish01 * sqrt(2) * cos(angle * PI / 180.0))/ (1 + sin(angle * PI / 180.0)* sin(angle * PI / 180.0));
-			//y_trans = (radiusFish01 * sqrt(2) * cos(angle * PI / 180.0) * sin(angle * PI / 180.0)) / (1 + sin(angle * PI / 180.0)* sin(angle * PI / 180.0));
+			//x_trans = (fish01.radius * sqrt(2) * cos(angle * PI / 180.0))/ (1 + sin(angle * PI / 180.0)* sin(angle * PI / 180.0));
+			//y_trans = (fish01.radius * sqrt(2) * cos(angle * PI / 180.0) * sin(angle * PI / 180.0)) / (1 + sin(angle * PI / 180.0)* sin(angle * PI / 180.0));
 		}
 		int phi = angle % 360;
 		float phis = -phi * PI / 180.0;

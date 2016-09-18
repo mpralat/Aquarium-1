@@ -1,13 +1,14 @@
-﻿  main_file.cpp
-c:\users\izabela\documents\github\aquarium\szkielet1\main_file.cpp(120): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'glm::vec3'
-c:\users\izabela\documents\github\aquarium\szkielet1\main_file.cpp(224): warning C4273: 'terminate': inconsistent dll linkage
+﻿cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
+  main_file.cpp
+c:\users\marta\desktop\grf\aquarium\szkielet1\main_file.cpp(232): warning C4273: 'terminate': inconsistent dll linkage
   c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_terminate.h(29): note: see previous definition of 'terminate'
-c:\users\izabela\documents\github\aquarium\szkielet1\main_file.cpp(286): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\izabela\documents\github\aquarium\szkielet1\main_file.cpp(290): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\izabela\documents\github\aquarium\szkielet1\main_file.cpp(363): warning C4305: 'initializing': truncation from 'double' to 'float'
-c:\users\izabela\documents\github\aquarium\szkielet1\main_file.cpp(404): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\izabela\documents\github\aquarium\szkielet1\main_file.cpp(405): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\izabela\documents\github\aquarium\szkielet1\main_file.cpp(412): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\izabela\documents\github\aquarium\szkielet1\main_file.cpp(420): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\izabela\documents\github\aquarium\szkielet1\main_file.cpp(424): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  szkielet1.vcxproj -> C:\Users\Izabela\Documents\GitHub\Aquarium\Debug\szkielet1.exe
+c:\users\marta\desktop\grf\aquarium\szkielet1\main_file.cpp(303): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\marta\desktop\grf\aquarium\szkielet1\main_file.cpp(304): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\marta\desktop\grf\aquarium\szkielet1\main_file.cpp(393): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\marta\desktop\grf\aquarium\szkielet1\main_file.cpp(433): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\marta\desktop\grf\aquarium\szkielet1\main_file.cpp(434): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\marta\desktop\grf\aquarium\szkielet1\main_file.cpp(441): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\marta\desktop\grf\aquarium\szkielet1\main_file.cpp(448): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\marta\desktop\grf\aquarium\szkielet1\main_file.cpp(452): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+     Creating library C:\Users\marta\Desktop\grf\Aquarium\Debug\szkielet1.lib and object C:\Users\marta\Desktop\grf\Aquarium\Debug\szkielet1.exp
+  szkielet1.vcxproj -> C:\Users\marta\Desktop\grf\Aquarium\Debug\szkielet1.exe
