@@ -6,9 +6,4 @@ c:\users\marta\desktop\grf\aquarium\szkielet1\main_file.cpp(294): warning C4305:
 c:\users\marta\desktop\grf\aquarium\szkielet1\main_file.cpp(295): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
 c:\users\marta\desktop\grf\aquarium\szkielet1\main_file.cpp(295): warning C4305: 'initializing': truncation from 'double' to 'float'
 c:\users\marta\desktop\grf\aquarium\szkielet1\main_file.cpp(384): warning C4305: 'initializing': truncation from 'double' to 'float'
-c:\users\marta\desktop\grf\aquarium\szkielet1\main_file.cpp(424): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\marta\desktop\grf\aquarium\szkielet1\main_file.cpp(425): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\marta\desktop\grf\aquarium\szkielet1\main_file.cpp(427): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\marta\desktop\grf\aquarium\szkielet1\main_file.cpp(435): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\marta\desktop\grf\aquarium\szkielet1\main_file.cpp(439): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   szkielet1.vcxproj -> C:\Users\marta\Desktop\grf\Aquarium\Debug\szkielet1.exe

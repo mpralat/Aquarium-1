@@ -1,4 +1,5 @@
 #pragma once
+#include "constants.h"
 #include "Model.h"
 #include <string>
 #include <vector>
@@ -16,7 +17,7 @@ public:
 
 	void Fish::sendMatrix(glm::mat4 view_matrix, glm::mat4 perspective_matrix);
 	void Fish::getUniform();
-	void Fish::swim(int count, int angle);
+	int Fish::swim(int count, bool updown);
 };
 
 

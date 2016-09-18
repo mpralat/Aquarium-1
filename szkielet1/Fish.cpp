@@ -40,7 +40,28 @@ void Fish::getUniform() {
 
 }
 
-void Fish::swim(int count, int angle) {
+int Fish::swim(int count, bool updown) {
+	float x_trans = radius * cos(angle * PI / 180.0);
+	float y_trans = radius * sin(angle * PI / 180.0);
+	int phi = angle % 360;
+	float phis = -phi * PI / 180.0;
+	translate_matrix = glm::translate(glm::translate(glm::mat4(1.0), glm::vec3(x_trans, 0.0, y_trans)), glm::vec3(0.0, height, 0.0));
+	if (updown) {
+		if (count < 500) {
+			height = height - 0.005;
+			rotate_matrix = glm::rotate(glm::rotate(translate_matrix, phis, glm::vec3(0, 1, 0)), 145.f, glm::vec3(1, 0, 0));
+		}
+		else {
+			height = height + 0.005;
+			rotate_matrix = glm::rotate(glm::rotate(translate_matrix, phis, glm::vec3(0, 1, 0)), -145.f, glm::vec3(1, 0, 0));
+		}
+		if (count >= 1000)
+			count = 0;
+		//h = sin(count);
+		count++;
+	}
+	else
+		rotate_matrix = glm::rotate(translate_matrix, phis, glm::vec3(0, 1, 0));
 
-
+	return count;
 }

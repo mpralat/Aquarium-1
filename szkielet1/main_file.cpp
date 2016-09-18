@@ -376,14 +376,8 @@ int main()
 	enableFaceCulling();
 	glDepthFunc(GL_LESS);
 
-	//Fishes
-
-	float x_trans = 0.0;
-	float y_trans = 0.0;
-	int angle = 0;
-	float h = 3.7;
-	int count = 0;
-
+	// count array allows fish to swim up and down
+	int countArr[FISH_NUMBER] = { 0,0,0,0,0 };
 	while (renderingEnabled())
 	{
 		std::string title = "Aquarium";
@@ -413,48 +407,21 @@ int main()
 		double act_time = glfwGetTime();
 		double elapsed_time = act_time - prev_time;
 
+		// the higher the angle value, the faster fish will swim - editable in speedArray
 		if (elapsed_time > 0.01)
 		{
 			prev_time = act_time;
 			for (int i = 0; i < FISH_NUMBER; i++)
 				fishVector[i].angle += speedArray[i];
-			angle += 1;
 		}
-
-		x_trans = fish01.radius * cos(fishVector[0].angle * PI / 180.0);
-		y_trans = fish01.radius * sin(fishVector[0].angle * PI / 180.0);
-		int phi = angle % 360;
-		float phis = -phi * PI / 180.0;
-		fish02.translate_matrix = glm::translate(glm::translate(glm::mat4(1.0), glm::vec3(x_trans, 0.0, y_trans)), glm::vec3(0.0, 3.0, 0.0));
-		fish02.rotate_matrix = glm::rotate(fish02.translate_matrix, phis, glm::vec3(0, 1, 0));
-		// PIERWSZA RYBKA:
-		// UP AND DOWN
 		
-		fish01.translate_matrix = glm::translate(glm::translate(glm::mat4(1.0), glm::vec3(x_trans, 0.0, y_trans)), glm::vec3(0.0, h, 0.0));
-		if (count < 500) {
-			h = h - 0.005;
-			fish01.rotate_matrix = glm::rotate(glm::rotate(fish01.translate_matrix, phis, glm::vec3(0, 1, 0)), 145.f, glm::vec3(1, 0, 0));
-		}
-		else {
-			h = h + 0.005;
-			fish01.rotate_matrix = glm::rotate(glm::rotate(fish01.translate_matrix, phis, glm::vec3(0, 1, 0)), -145.f, glm::vec3(1, 0, 0));
-		}
-		if (count >= 1000)
-			count = 0;
-		//h = sin(count);
-		count++;
-
 		//Draw Fish
 		for (int i = 0; i < FISH_NUMBER; i++) {
+			// some fish can swim up and down - here simply fish with even number will swim up and down as in that case, i % 2 == 0 equals true 
+			countArr[i] = fishVector[i].swim(countArr[i], i % 2 == 0);
 			fishVector[i].sendMatrix(view_matrix, perspective);
 			fishVector[i].drawModel();
 		}
-
-		fish01.sendMatrix(view_matrix,perspective);
-		fish01.drawModel();
-		
-	    fish02.sendMatrix(view_matrix, perspective);
-		fish02.drawModel();
 
 		//Draw aquarium
 		aquariumBase.sendMatrix(view_matrix, perspective);
