@@ -43,7 +43,7 @@ glm::mat4 view_matrix;
 glm::mat4 perspective;
 float cam_height = 3.0;
 glm::vec3 future_move;
-int FISH_NUMBER = 2;
+const int FISH_NUMBER = 5;
 
 void updateTimer()
 {
@@ -290,22 +290,21 @@ int main()
 	std::vector<std::string> namesVector;
 	for (int i = 1; i < FISH_NUMBER + 1; i++)
 		namesVector.push_back(path + std::to_string(i) + ".obj");
-	
-	std::vector<float> radiusVector;
-	radiusVector.push_back(1.7);
-	radiusVector.push_back(1.1);
+
+	float radiusArray[FISH_NUMBER] = { 1.7, 1.1, 1.5, 1.9, 1.3 };
+	float heightArray[FISH_NUMBER] = { 3.0, 3.1, 2.5, 3.2, 2.7 };
+	int speedArray[FISH_NUMBER] = { 1, 2, 1, 2, 2 };
 
 	std::vector<Fish> fishVector;
-	for (int i = 0; i < 2; i++) {
+	for (int i = 0; i < FISH_NUMBER; i++) {
 		std::cout << "i " << std::endl;
-		Fish newFish(namesVector[i], radiusVector[i]);
+		Fish newFish(namesVector[i], radiusArray[i], heightArray[i], 0);
 		loader.LoadSceneFromFile(newFish.path, newFish.vao, newFish.vertices_count, newFish.starting_vertex, newFish.textures);
 		newFish.shader = loader.LoadShaders("fish_vertex_shader.glsl", "fish_fragment_shader.glsl");
 		fishVector.push_back(newFish);
-		std::cout << fishVector.size() << std::endl;
 	}
 	Fish fish01 = fishVector[0];
-	Fish fish02 = fishVector[1];
+	Fish fish02 = fishVector[4];
 	/*
 	Fish fish01("Meshes/TropicalFish01.obj",1.7);
 	loader.LoadSceneFromFile(fish01.path, fish01.vao, fish01.vertices_count, fish01.starting_vertex, fish01.textures);
@@ -387,12 +386,10 @@ int main()
 
 	while (renderingEnabled())
 	{
-
 		std::string title = "Aquarium";
 		glfwSetWindowTitle(window_handle, title.c_str());
 
 		updateTimer();
-
 		clearColor(0.5, 0.5, 0.5);
 		glm::mat4 view_static = view_matrix;
 		glm::vec3 pos(0.0, 0.0, 0.0);
@@ -419,22 +416,20 @@ int main()
 		if (elapsed_time > 0.01)
 		{
 			prev_time = act_time;
+			for (int i = 0; i < FISH_NUMBER; i++)
+				fishVector[i].angle += speedArray[i];
 			angle += 1;
-			//std::cout << fish01.radius *cos(angle * PI / 180.0) << std::endl;
-
-			x_trans = fish01.radius * cos(angle * PI / 180.0);
-			y_trans = fish01.radius * sin(angle * PI / 180.0);
-
-			//LEMNISKATA 
-			//x_trans = (fish01.radius * sqrt(2) * cos(angle * PI / 180.0))/ (1 + sin(angle * PI / 180.0)* sin(angle * PI / 180.0));
-			//y_trans = (fish01.radius * sqrt(2) * cos(angle * PI / 180.0) * sin(angle * PI / 180.0)) / (1 + sin(angle * PI / 180.0)* sin(angle * PI / 180.0));
 		}
+
+		x_trans = fish01.radius * cos(fishVector[0].angle * PI / 180.0);
+		y_trans = fish01.radius * sin(fishVector[0].angle * PI / 180.0);
 		int phi = angle % 360;
 		float phis = -phi * PI / 180.0;
-		fish02.translate_matrix = glm::translate(glm::mat4(1.0), glm::vec3(x_trans, 0.0, y_trans));
+		fish02.translate_matrix = glm::translate(glm::translate(glm::mat4(1.0), glm::vec3(x_trans, 0.0, y_trans)), glm::vec3(0.0, 3.0, 0.0));
 		fish02.rotate_matrix = glm::rotate(fish02.translate_matrix, phis, glm::vec3(0, 1, 0));
 		// PIERWSZA RYBKA:
 		// UP AND DOWN
+		
 		fish01.translate_matrix = glm::translate(glm::translate(glm::mat4(1.0), glm::vec3(x_trans, 0.0, y_trans)), glm::vec3(0.0, h, 0.0));
 		if (count < 500) {
 			h = h - 0.005;
@@ -450,6 +445,11 @@ int main()
 		count++;
 
 		//Draw Fish
+		for (int i = 0; i < FISH_NUMBER; i++) {
+			fishVector[i].sendMatrix(view_matrix, perspective);
+			fishVector[i].drawModel();
+		}
+
 		fish01.sendMatrix(view_matrix,perspective);
 		fish01.drawModel();
 		

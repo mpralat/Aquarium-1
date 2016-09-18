@@ -1,9 +1,11 @@
 #include"Fish.h"
 
 
-Fish::Fish (std::string path, float radius) {
+Fish::Fish (std::string path, float radius, float height, int angle) {
 	setPath(path);
 	this->radius = radius;
+	this->height = height;
+	this->angle = angle;
 }
 
 Fish::Fish() {
@@ -35,5 +37,10 @@ void Fish::getUniform() {
 	trans_uniform = glGetUniformLocation(shader, "trans_matrix");
 	if (trans_uniform == -1)
 		std::cout << "Variable 'trans_matrix' not found." << std::endl;
+
+}
+
+void Fish::swim(int count, int angle) {
+
 
 }
