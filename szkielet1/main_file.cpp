@@ -288,15 +288,54 @@ int main()
 	loader.LoadSceneFromFile(aquariumGlass.path, aquariumGlass.vao, aquariumGlass.vertices_count, aquariumGlass.starting_vertex, aquariumGlass.textures);
 	aquariumGlass.shader = loader.LoadShaders("aquariumGlassvertex_shader.glsl", "aquariumGlassfragment_shader.glsl");
 
-
-	Fish fish01("Meshes/TropicalFish01.obj",1.7);
+	Fish fish01("Meshes/TropicalFish01.obj",1.1,3.0,-2.5,0.9,false);
 	loader.LoadSceneFromFile(fish01.path, fish01.vao, fish01.vertices_count, fish01.starting_vertex, fish01.textures);
 	fish01.shader = loader.LoadShaders("fish_vertex_shader.glsl", "fish_fragment_shader.glsl");
 
-	Fish fish02("Meshes/TropicalFish02.obj",1.1);
+	Fish fish02("Meshes/TropicalFish02.obj",2.1, -4.5, -4.0, 0, false);
 	loader.LoadSceneFromFile(fish02.path, fish02.vao, fish02.vertices_count, fish02.starting_vertex, fish02.textures);
 	fish02.shader = loader.LoadShaders("fish_vertex_shader.glsl", "fish_fragment_shader.glsl");
+	
+	Fish fish03("Meshes/TropicalFish03.obj", 2.8, 3.0, -2.0, 0.8, true);
+	loader.LoadSceneFromFile(fish03.path, fish03.vao, fish03.vertices_count, fish03.starting_vertex, fish03.textures);
+	fish03.shader = loader.LoadShaders("fish_vertex_shader.glsl", "fish_fragment_shader.glsl");
 
+	Fish fish04("Meshes/TropicalFish04.obj", 2.9, -3.0, 0, 0.6, false);
+	loader.LoadSceneFromFile(fish04.path, fish04.vao, fish04.vertices_count, fish04.starting_vertex, fish04.textures);
+	fish04.shader = loader.LoadShaders("fish_vertex_shader.glsl", "fish_fragment_shader.glsl");
+
+	Fish fish05("Meshes/TropicalFish05.obj", 1.5, 4.0, -2.7, -0.7, false);
+	loader.LoadSceneFromFile(fish05.path, fish05.vao, fish05.vertices_count, fish05.starting_vertex, fish05.textures);
+	fish05.shader = loader.LoadShaders("fish_vertex_shader.glsl", "fish_fragment_shader.glsl");
+
+	Fish fish06("Meshes/TropicalFish06.obj", 2.0, -4.6, 0, 0, true);
+	loader.LoadSceneFromFile(fish06.path, fish06.vao, fish06.vertices_count, fish06.starting_vertex, fish06.textures);
+	fish06.shader = loader.LoadShaders("fish_vertex_shader.glsl", "fish_fragment_shader.glsl");
+
+
+	Fish fish07("Meshes/TropicalFish15.obj",1.1,5.0,-1.5,2.6,true);
+	loader.LoadSceneFromFile(fish07.path, fish07.vao, fish07.vertices_count, fish07.starting_vertex, fish07.textures);
+	fish07.shader = loader.LoadShaders("fish_vertex_shader.glsl", "fish_fragment_shader.glsl");
+
+	Fish fish08("Meshes/TropicalFish08.obj",2.1, -0.5, 0, 0, true);
+	loader.LoadSceneFromFile(fish08.path, fish08.vao, fish08.vertices_count, fish08.starting_vertex, fish08.textures);
+	fish08.shader = loader.LoadShaders("fish_vertex_shader.glsl", "fish_fragment_shader.glsl");
+	
+	Fish fish09("Meshes/TropicalFish09.obj", 2.8, 5.0, -2.0, 0.8, true);
+	loader.LoadSceneFromFile(fish09.path, fish09.vao, fish09.vertices_count, fish09.starting_vertex, fish09.textures);
+	fish09.shader = loader.LoadShaders("fish_vertex_shader.glsl", "fish_fragment_shader.glsl");
+
+	Fish fish10("Meshes/TropicalFish10.obj", 2.9, 1.0, 0, 0.4, false);
+	loader.LoadSceneFromFile(fish10.path, fish10.vao, fish10.vertices_count, fish10.starting_vertex, fish10.textures);
+	fish10.shader = loader.LoadShaders("fish_vertex_shader.glsl", "fish_fragment_shader.glsl");
+
+	Fish fish11("Meshes/TropicalFish11.obj", 1.5, 4.0, -2.7, -0.7, false);
+	loader.LoadSceneFromFile(fish11.path, fish11.vao, fish11.vertices_count, fish11.starting_vertex, fish11.textures);
+	fish11.shader = loader.LoadShaders("fish_vertex_shader.glsl", "fish_fragment_shader.glsl");
+
+	Fish fish12("Meshes/TropicalFish12.obj", 1.0, 5.0, 0, 0, false);
+	loader.LoadSceneFromFile(fish12.path, fish12.vao, fish12.vertices_count, fish12.starting_vertex, fish12.textures);
+	fish12.shader = loader.LoadShaders("fish_vertex_shader.glsl", "fish_fragment_shader.glsl");
 	// Skybox
 	GLfloat skybox[] = {
 		-1.0f,  1.0f, -1.0f,
@@ -353,19 +392,26 @@ int main()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	glEnableVertexAttribArray(0);
 	GLuint skybox_texture = 0;
-	loader.loadSkybox("skybox/sea_ft.JPG", "skybox/sea_bk.JPG", "skybox/sea_lf.JPG", "skybox/sea_rt.JPG",
-	"skybox/sea_up.JPG", "skybox/sea_dn.JPG", skybox_texture);
+	loader.loadSkybox("skybox/wall.jpg", "skybox/wall.jpg", "skybox/wall.jpg", "skybox/wall.jpg",
+	"skybox/wall.jpg", "skybox/floor.jpg", skybox_texture);
 	
 	enableFaceCulling();
 	glDepthFunc(GL_LESS);
 
 	//Fishes
-
-	float x_trans = 0.0;
-	float y_trans = 0.0;
 	int angle = 0;
 	float h = 3.7;
-	int count = 0;
+	int count = 400;
+
+	float h2 = 1.7;
+	int count2 = 0;
+
+	float h3 = 1.7;
+	int count3 = 100;
+
+	float h4 = 1.7;
+	int count4 = 200;
+
 
 	while (renderingEnabled())
 	{
@@ -402,34 +448,73 @@ int main()
 		{
 			prev_time = act_time;
 			angle += 1;
-			//std::cout << fish01.radius *cos(angle * PI / 180.0) << std::endl;
-
-			x_trans = fish01.radius * cos(angle * PI / 180.0);
-			y_trans = fish01.radius * sin(angle * PI / 180.0);
-
-			//LEMNISKATA 
-			//x_trans = (radiusFish01 * sqrt(2) * cos(angle * PI / 180.0))/ (1 + sin(angle * PI / 180.0)* sin(angle * PI / 180.0));
-			//y_trans = (radiusFish01 * sqrt(2) * cos(angle * PI / 180.0) * sin(angle * PI / 180.0)) / (1 + sin(angle * PI / 180.0)* sin(angle * PI / 180.0));
 		}
-		int phi = angle % 360;
-		float phis = -phi * PI / 180.0;
-		fish02.translate_matrix = glm::translate(glm::mat4(1.0), glm::vec3(x_trans, 0.0, y_trans));
-		fish02.rotate_matrix = glm::rotate(fish02.translate_matrix, phis, glm::vec3(0, 1, 0));
-		// PIERWSZA RYBKA:
-		// UP AND DOWN
-		fish01.translate_matrix = glm::translate(glm::translate(glm::mat4(1.0), glm::vec3(x_trans, 0.0, y_trans)), glm::vec3(0.0, h, 0.0));
+	
+		int phi;
 		if (count < 500) {
 			h = h - 0.005;
-			fish01.rotate_matrix = glm::rotate(glm::rotate(fish01.translate_matrix, phis, glm::vec3(0, 1, 0)), 145.f, glm::vec3(1, 0, 0));
-		}
+			phi = 145;
+		}	
 		else {
 			h = h + 0.005;
-			fish01.rotate_matrix = glm::rotate(glm::rotate(fish01.translate_matrix, phis, glm::vec3(0, 1, 0)), -145.f, glm::vec3(1, 0, 0));
-		}
+			phi = -145;
+		}		
 		if (count >= 1000)
 			count = 0;
-		//h = sin(count);
 		count++;
+		fish01.updateMatrix(h, angle, phi);
+		fish02.updateMatrix(h, angle, phi);
+		fish03.updateMatrix(h, angle, phi);
+
+		if (count2 < 300) {
+			h2 = h2 - 0.005;
+			phi = 145;
+		}
+		else {
+			h2 = h2 + 0.005;
+			phi = -145;
+		}
+		if (count2 >= 600)
+			count2 = 0;
+		count2++;
+
+		fish04.updateMatrix(h2, angle, phi);
+		fish05.updateMatrix(h2, angle, phi);
+		fish06.updateMatrix(h2, angle, phi);
+
+		if (count3 < 400) {
+			h3 = h3 - 0.01;
+			phi = 145;
+		}
+		else {
+			h3 = h3 + 0.01;
+			phi = -145;
+		}
+		if (count3 >= 800)
+			count3 = 0;
+		count3++;
+		fish07.updateMatrix(h3, angle, phi);
+		fish08.updateMatrix(h3, angle, phi);
+		fish09.updateMatrix(h3, angle, phi);
+
+		if (count4 < 300) {
+			h4 = h4 - 0.01;
+			phi = 145;
+		}
+		else {
+			h4 = h4 + 0.01;
+			phi = -145;
+		}
+		if (count4 >= 600)
+			count4 = 0;
+		count4++;
+
+		fish10.updateMatrix(h4, angle, phi);
+		fish11.updateMatrix(h4, angle, phi);
+		fish12.updateMatrix(h4, angle, phi);
+
+
+
 
 		//Draw Fish
 		fish01.sendMatrix(view_matrix,perspective);
@@ -437,6 +522,36 @@ int main()
 		
 	    fish02.sendMatrix(view_matrix, perspective);
 		fish02.drawModel();
+
+		fish03.sendMatrix(view_matrix, perspective);
+		fish03.drawModel();
+
+		fish04.sendMatrix(view_matrix, perspective);
+		fish04.drawModel();
+
+		fish05.sendMatrix(view_matrix, perspective);
+		fish05.drawModel();
+
+		fish06.sendMatrix(view_matrix, perspective);
+		fish06.drawModel();
+
+		fish07.sendMatrix(view_matrix, perspective);
+		fish07.drawModel();
+
+		fish08.sendMatrix(view_matrix, perspective);
+		fish08.drawModel();
+
+		fish09.sendMatrix(view_matrix, perspective);
+		fish09.drawModel();
+
+		fish10.sendMatrix(view_matrix, perspective);
+		fish10.drawModel();
+
+		fish11.sendMatrix(view_matrix, perspective);
+		fish11.drawModel();
+
+		fish12.sendMatrix(view_matrix, perspective);
+		fish12.drawModel();
 
 		//Draw aquarium
 		aquariumBase.sendMatrix(view_matrix, perspective);

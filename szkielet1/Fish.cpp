@@ -1,13 +1,39 @@
 #include"Fish.h"
 
 
-Fish::Fish (std::string path, float radius) {
+Fish::Fish (std::string path, float radius, float offset_x, float offset_y, float offset_z, bool R_diretion) {
 	setPath(path);
 	this->radius = radius;
+	this->offset_x = offset_x;
+	this->offset_y = offset_y;
+	this->offset_z = offset_z;
+	this->R_diretion = R_diretion;
 }
 
 Fish::Fish() {
 
+}
+
+void Fish::updateMatrix(float y_trans, int angle, float phi) {
+
+	x_trans = radius * cos(angle * PI / 180.0);
+	z_trans = radius * sin(angle * PI / 180.0);
+	int phi_temp = angle % 360;
+	float phis = -phi_temp * PI / 180.0;
+
+	
+	if (R_diretion) {
+		translate_matrix = glm::translate(glm::translate(glm::mat4(1.0),
+			glm::vec3(-x_trans + offset_x, y_trans, -z_trans + offset_z)), glm::vec3(0.0, offset_y, 0.0));
+		rotate_matrix = glm::rotate(glm::rotate(translate_matrix, phis, glm::vec3(0, 1, 0)), -phi, glm::vec3(1, 0, 0));
+	}
+	else {
+		translate_matrix = glm::translate(glm::translate(glm::mat4(1.0),
+			glm::vec3(x_trans + offset_x, y_trans, z_trans + offset_z)), glm::vec3(0.0, offset_y, 0.0));
+		rotate_matrix = glm::rotate(glm::rotate(translate_matrix, phis, glm::vec3(0, 1, 0)), phi, glm::vec3(1, 0, 0));
+	}
+		
+	
 }
 
 void Fish::sendMatrix(glm::mat4 view_matrix, glm::mat4 perspective_matrix) {
