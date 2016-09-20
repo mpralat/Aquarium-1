@@ -1,15 +1,5 @@
-# Blender MTL File: 'aquarium.blend'
-# Material Count: 2
-
-newmtl glass
-Ns 137.254902
-Ka 0.072165 0.072165 0.072165
-Kd 0.800000 0.800000 0.800000
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.005000
-d 0.200000
-illum 7
+# Blender MTL File: 'None'
+# Material Count: 1
 
 newmtl water
 Ns 137.254902
@@ -18,5 +8,6 @@ Kd 0.499090 0.636419 0.742289
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.005000
-d 0.300000
-illum 7
+d 1.000000
+illum 2
+map_Kd  water.jpg
